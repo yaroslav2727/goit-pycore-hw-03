@@ -6,7 +6,11 @@ def get_upcoming_birthdays(users):
     
     for user in users:
 
-        day_of_birth = datetime.strptime(user['birthday'], '%Y.%m.%d')
+        try:
+            day_of_birth = datetime.strptime(user['birthday'], '%Y.%m.%d')
+        except ValueError:
+            print(f"Incorrect date format for user {user["name"]}. Please use YYYY.MM.DD.")
+            continue
         
         birthday = day_of_birth.replace(year=today.year)
         
@@ -30,8 +34,9 @@ def get_upcoming_birthdays(users):
     return upcoming_birthdays
 
 users = [
-    {"name": "John Doe", "birthday": "1985.11.03"},
-    {"name": "Jane Smith", "birthday": "1990.11.06"}
+    {"name": "John Doe", "birthday": "1985.12.31"},
+    {"name": "Jane Smith", "birthday": "1990.01.02"},
+    {"name": "Andrew Brown", "birthday": "1990-01-02"}
 ]
 
 
